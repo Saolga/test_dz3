@@ -26,38 +26,31 @@ public class ItemsPage extends Base{
         return new FilterPage();
     }
 
-    @FindBy(xpath = ".//span[contains(text(),'Показывать по')]")        //&&&
+    @FindBy(xpath = ".//span[contains(text(),'Показывать по')]")        
     public WebElement showx;      //показывать по выбор
 
     @FindBy(xpath = ".//span[contains(text(),'Показывать по')]/parent::button")
     public WebElement showxButton;
-
-    @FindBy(xpath = ".//option[contains(text(),'Показывать по 12')]/parent::select")
-    public WebElement show12;
-
-    @FindBy(xpath = ".//span[contains(text(),'Показывать по')]/ancestor::button/following-sibling::select")
-    public WebElement numberShown;
-
-    @FindBy(xpath = ".//span[contains(text(),'Показывать по')]/parent::button/parent::span")
-    public WebElement tr100;
+    
+    @FindBy(xpath = ".//span[@class ='select__text' and contains(text(),'Показывать по 12')]")
+    public WebElement showx12Button;
 
     @FindBy(xpath = ".//div[contains(@class,'n-snippet-card2__title')]/a | .//div[contains(@class,'n-snippet-cell2__header')]/div/a")
     List<WebElement> results;
-
 
     @FindBy(xpath = ".//input[@id='header-search']")
     public WebElement headerSearch;
 
     public ChosenItemPage rememberElementAndFindIt(){        //and select number of items shown
         showxButton.click();
-      //  waitVisibilityOf(show12);
-      //  Select numbOfElems = new Select(show12);
-      //  numbOfElems.selectByValue("12");
+        waitVisibilityOf(showx12Button);
+        showx12Button.click();
         WebElement firstItem=results.get(0);
+        waitVisibilityOf(firstItem);
         String name=firstItem.getText();        //name of the product in the first item
-     //   waitVisibilityOf(firstItem);
-      //  Assert.assertEquals("Показывать по 12 не установлено",
-       //        "Показывать по 12", showx.getText());
+
+        Assert.assertEquals("Показывать по 12 не установлено",
+               "Показывать по 12", showx.getText());
 
         Stash.put(Stash.firstItemName, name);       //remeber first item
         fillField(name,headerSearch);
