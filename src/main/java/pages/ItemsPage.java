@@ -42,9 +42,9 @@ public class ItemsPage extends Base{
     public WebElement headerSearch;
 
     public ChosenItemPage rememberElementAndFindIt(){        //and select number of items shown
-        showxButton.click();
-        waitVisibilityOf(showx12Button);
-        showx12Button.click();
+        showxButton.click();        //делает выпадющее меню количества выбора показываемых товаров
+        waitVisibilityOf(showx12Button);        
+        showx12Button.click();      //выбираем показывать по 12
         WebElement firstItem=results.get(0);
         waitVisibilityOf(firstItem);
         String name=firstItem.getText();        //name of the product in the first item
